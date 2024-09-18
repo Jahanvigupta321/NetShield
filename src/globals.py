@@ -1,4 +1,4 @@
-# Artillery - globals
+# NetShield - globals
 
 global g_apppath
 global g_appfile

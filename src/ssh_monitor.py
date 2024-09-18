@@ -78,8 +78,8 @@ def ssh_monitor(monitor_frequency):
                             if counter == 0:
                                 whitelist_match = is_whitelisted_ip(ipaddress)
                                 if whitelist_match == 0:
-                                    subject = "[!] Artillery has banned an SSH brute force. [!]"
-                                    alert = "Artillery has blocked (blacklisted) the following IP for SSH brute forcing violations: " + ipaddress
+                                    subject = "[!] NetShield has banned an SSH brute force. [!]"
+                                    alert = "NetShield has blocked (blacklisted) the following IP for SSH brute forcing violations: " + ipaddress
                                     warn_the_good_guys(subject, alert)
 
                                     # do the actual ban, this is pulled from

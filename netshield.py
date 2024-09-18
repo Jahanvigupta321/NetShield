@@ -1,7 +1,7 @@
 #!/usr/bin/python
 ################################################################################
 #
-#  Artillery - An active honeypotting tool and threat intelligence feed
+#  NetShield - An active honeypotting tool and threat intelligence feed
 #
 # Written by Dave Kennedy (ReL1K) @HackingDave
 #
@@ -20,14 +20,14 @@ from src.pyuac import * # added so that it prompts when launching from batch fil
 
 import traceback
 
-# import artillery global variables
+# import NetShield global variables
 import src.globals
 from src.core import *
 #
 init_globals()
 # Tested on win 7/8/10 also on kali rolling. left this here for when someone tries to launch this directly before using setup.
 if not os.path.isfile(src.globals.g_appfile):
-    print("[*] Artillery is not installed, running setup.py..")
+    print("[*] NetShield is not installed, running setup.py..")
     import setup
 
 # from src.config import * # yaml breaks config reading - disabling
@@ -42,11 +42,11 @@ if is_windows():#this is for launching script as admin from batchfile.
         #not the best way but for now something will go into eventlog.
         #for people with subscriptions in there environment like myself.
         #will work on better way
-        from src.events import ArtilleryStartEvent
-        # let the local(txt))logfile know artillery has started successfully
-        write_log("Artillery has started successfully.")
-        # write to windows log to let know artillery has started
-        ArtilleryStartEvent()
+        from src.events import NetShieldStartEvent
+        # let the local(txt))logfile know NetShield has started successfully
+        write_log("NetShield has started successfully.")
+        # write to windows log to let know NetShield has started
+        NetShieldStartEvent()
         #create temp datebase and continue
     if not os.path.isfile(src.globals.g_apppath + "\\database\\temp.database"):
         filewrite = open(src.globals.g_apppath + "\\database\\temp.database", "w")
@@ -57,8 +57,8 @@ if is_windows():#this is for launching script as admin from batchfile.
 if is_posix():
     # Check to see if we are root
     try: # and delete folder
-        if os.path.isdir("/var/artillery_check_root"):
-            os.rmdir('/var/artillery_check_root')
+        if os.path.isdir("/var/NetShield_check_root"):
+            os.rmdir('/var/NetShield_check_root')
             #if not thow error and quit
     except OSError as e:
         if (e.errno == errno.EACCES or e.errno == errno.EPERM):
@@ -74,14 +74,14 @@ if is_posix():
             filewrite.close()
 
 
-write_console("Artillery has started \nIf on Windows Ctrl+C to exit. \nConsole logging enabled.\n")
-write_console("Artillery is running from '%s'" % src.globals.g_apppath)
+write_console("NetShield has started \nIf on Windows Ctrl+C to exit. \nConsole logging enabled.\n")
+write_console("NetShield is running from '%s'" % src.globals.g_apppath)
 
-# prep everything for artillery first run
+# prep everything for NetShield first run
 check_banlist_path()
 
 try:
-    # update artillery
+    # update NetShield
     if is_config_enabled("AUTO_UPDATE"):
         thread.start_new_thread(update, ())
 
@@ -142,7 +142,7 @@ try:
         write_console("Launching thread to recycle IP addresses.")
         thread.start_new_thread(refresh_log, ())
 
-    # pull additional source feeds from external parties other than artillery
+    # pull additional source feeds from external parties other than NetShield
     # - pulls every 2 hours or ATIF threat feeds
     write_console("Launching thread to get source feeds, if needed.")
     thread.start_new_thread(pull_source_feeds, ())
@@ -150,21 +150,21 @@ try:
     #note to self never edit linux service files on windows.doh
     #added to create pid file service would fail to start on kali 2017
     #if is_posix():
-    #    if not os.path.isfile("/var/run/artillery.pid"):
+    #    if not os.path.isfile("/var/run/NetShield.pid"):
     #        pid = str(os.getpid())
-    #        f = open('/var/run/artillery.pid', 'w')
+    #        f = open('/var/run/NetShield.pid', 'w')
     #        f.write(pid)
     #        f.close()
 
 
     # let the program to continue to run
     write_console("All set.")
-    write_log("Artillery is up and running")
+    write_log("NetShield is up and running")
     while 1:
         try:
             time.sleep(100000)
         except KeyboardInterrupt:
-            print("\n[!] Exiting Artillery... hack the gibson.\n")
+            print("\n[!] Exiting NetShield... hack the gibson.\n")
             sys.exit()
 
 #except sys.excepthook as e:
@@ -177,6 +177,6 @@ except KeyboardInterrupt:
 except Exception as e:
     emsg = traceback.format_exc()
     print("General exception: " + format(e) + "\n" + emsg)
-    write_log("Error launching Artillery\n%s" % (emsg),2)
+    write_log("Error launching NetShield\n%s" % (emsg),2)
 
     sys.exit()

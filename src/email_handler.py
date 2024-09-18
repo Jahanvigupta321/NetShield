@@ -36,7 +36,7 @@ def check_alert():
             fileopen = open(mail_log_file, "r")
             data = fileopen.read()
             if is_config_enabled("EMAIL_ALERTS"):
-                send_mail("[!] " + socket.gethostname() + " | Artillery has new notifications for you. [!]",
+                send_mail("[!] " + socket.gethostname() + " | NetShield has new notifications for you. [!]",
                           data)
                 # save this for later just in case we need it
                 shutil.move(mail_log_file, mail_old_log_file)

@@ -3,7 +3,7 @@
 #
 # Events.py
 #
-# defined some events for use with Artillery
+# defined some events for use with NetShield
 # just basic events for now no dll. i dont know c. will try?.
 # I am aware of  win32service.pyd and i do not want to blow up logs for
 # now. logs to application log on windows. would like to create custom events?
@@ -22,24 +22,24 @@ if is_windows():
         process = win32api.GetCurrentProcess()
         token = win32security.OpenProcessToken(process, win32con.TOKEN_READ)
         my_sid = win32security.GetTokenInformation(token, win32security.TokenUser)[0]
-        AppName = "Artillery"
+        AppName = "NetShield"
         eventID = 1
         category =5
         myType = win32evtlog.EVENTLOG_WARNING_TYPE
-        descr =["Artillery Detected access to a honeypot port", "The offending ip has been blocked and added to the local routing table",]
+        descr =["NetShield Detected access to a honeypot port", "The offending ip has been blocked and added to the local routing table",]
         data = "Application\0Data".encode("ascii")
         win32evtlogutil.ReportEvent(AppName, eventID, eventCategory=category, eventType=myType, strings=descr, data=data, sid=my_sid)
 
 
-    def ArtilleryStartEvent():
+    def NetShieldStartEvent():
         process = win32api.GetCurrentProcess()
         token = win32security.OpenProcessToken(process, win32con.TOKEN_READ)
         my_sid = win32security.GetTokenInformation(token, win32security.TokenUser)[0]
-        AppName = "Artillery"
+        AppName = "NetShield"
         eventID = 1
         category =5
         myType = win32evtlog.EVENTLOG_INFORMATION_TYPE
-        descr =["Artillery has started and begun monitoring the selected ports ",]
+        descr =["NetShield has started and begun monitoring the selected ports ",]
         data = "Application\0Data".encode("ascii")
         win32evtlogutil.ReportEvent(AppName, eventID, eventCategory=category, eventType=myType, strings=descr, data=data, sid=my_sid)
 

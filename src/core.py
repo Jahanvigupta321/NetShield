@@ -57,16 +57,16 @@ from . import globals
 def init_globals():
     if 'win32' in sys.platform:
         programfolder = os.environ["PROGRAMFILES(X86)"]
-        globals.g_apppath = programfolder + "\\Artillery"
-        globals.g_appfile = globals.g_apppath + "\\artillery.py"
+        globals.g_apppath = programfolder + "\\NetShield"
+        globals.g_appfile = globals.g_apppath + "\\NetShield.py"
         globals.g_configfile = globals.g_apppath + "\\config"
         globals.g_banlist = globals.g_apppath + "\\banlist.txt"
         globals.g_localbanlist = globals.g_apppath + "\\localbanlist.txt"
 
     # consolidated nix* variants
     if ('linux' or 'linux2' or 'darwin') in sys.platform:
-        globals.g_apppath = "/var/artillery"
-        globals.g_appfile = globals.g_apppath + "/artillery.py"
+        globals.g_apppath = "/var/NetShield"
+        globals.g_appfile = globals.g_apppath + "/NetShield.py"
         globals.g_configfile = globals.g_apppath + "/config"
         globals.g_banlist = globals.g_apppath + "/banlist.txt"
         globals.g_localbanlist = globals.g_apppath + "/localbanlist.txt"
@@ -89,13 +89,13 @@ def create_config(configpath, configdefaults, keyorder):
    write_log("Creating config file %s" % (configpath))
    banner = "#############################################################################################\n"
    banner += "#\n"
-   banner += "# This is the Artillery configuration file. Change these variables and flags to change how\n"
+   banner += "# This is the NetShield configuration file. Change these variables and flags to change how\n"
    banner += "# this behaves.\n"
    banner += "#\n"
-   banner += "# Artillery written by: Dave Kennedy (ReL1K)\n"
+   banner += "# NetShield written by: Dave Kennedy (ReL1K)\n"
    banner += "# Website: https://www.binarydefense.com\n"
    banner += "# Email: info [at] binarydefense.com\n"
-   banner += "# Download: git clone https://github.com/binarydefense/artillery artillery/\n"
+   banner += "# Download: git clone https://github.com/binarydefense/NetShield NetShield/\n"
    banner += "# Install: python setup.py\n"
    banner += "#\n"
    banner += "#############################################################################################\n"
@@ -125,12 +125,12 @@ def check_config():
     configdefaults["WHITELIST_IP"] = ["127.0.0.1,localhost", "WHITELIST IP ADDRESSES, SPECIFY BY COMMAS ON WHAT IP ADDRESSES YOU WANT TO WHITELIST"]
     configdefaults["TCPPORTS"] = ["22,1433,8080,21,5060,5061,5900,25,53,110,1723,1337,10000,5800,44443,16993","TCP PORTS TO SPAWN HONEYPOT FOR"]
     configdefaults["UDPPORTS"] = ["123,53,5060,5061,3478", "UDP PORTS TO SPAWN HONEYPOT FOR"]
-    configdefaults["HONEYPOT_AUTOACCEPT"] = ["ON", "SHOULD THE HONEYPOT AUTOMATICALLY ADD ACCEPT RULES TO THE ARTILLERY CHAIN FOR ANY PORTS ITS LISTENING ON"]
+    configdefaults["HONEYPOT_AUTOACCEPT"] = ["ON", "SHOULD THE HONEYPOT AUTOMATICALLY ADD ACCEPT RULES TO THE NetShield CHAIN FOR ANY PORTS ITS LISTENING ON"]
     configdefaults["EMAIL_ALERTS"] = ["OFF","SHOULD EMAIL ALERTS BE SENT"]
     configdefaults["SMTP_USERNAME"] = ["","CURRENT SUPPORT IS FOR SMTP. ENTER YOUR USERNAME AND PASSWORD HERE FOR STARTTLS AUTHENTICATION. LEAVE BLANK FOR OPEN RELAY"]
     configdefaults["SMTP_PASSWORD"] = ["","ENTER SMTP PASSWORD HERE"]
-    configdefaults["ALERT_USER_EMAIL"] = ["enter_your_email_address_here@localhost","THIS IS WHO TO SEND THE ALERTS TO - EMAILS WILL BE SENT FROM ARTILLERY TO THIS ADDRESS"]
-    configdefaults["SMTP_FROM"] = ["Artillery_Incident@localhost","FOR SMTP ONLY HERE, THIS IS THE MAILTO"]
+    configdefaults["ALERT_USER_EMAIL"] = ["enter_your_email_address_here@localhost","THIS IS WHO TO SEND THE ALERTS TO - EMAILS WILL BE SENT FROM NetShield TO THIS ADDRESS"]
+    configdefaults["SMTP_FROM"] = ["NetShield_Incident@localhost","FOR SMTP ONLY HERE, THIS IS THE MAILTO"]
     configdefaults["SMTP_ADDRESS"] = ["smtp.gmail.com","SMTP ADDRESS FOR SENDING EMAIL, DEFAULT IS GMAIL"]
     configdefaults["SMTP_PORT"] = ["587","SMTP PORT FOR SENDING EMAILS DEFAULT IS GMAIL WITH STARTTLS"]
     configdefaults["EMAIL_TIMER"] = ["ON","THIS WILL SEND EMAILS OUT DURING A CERTAIN FREQUENCY. IF THIS IS SET TO OFF, ALERTS WILL BE SENT IMMEDIATELY (CAN LEAD TO A LOT OF SPAM)"]
@@ -149,18 +149,18 @@ def check_config():
     configdefaults["BIND_INTERFACE"] = ["","THIS ALLOWS YOU TO SPECIFY AN IP ADDRESS. LEAVE THIS BLANK TO BIND TO ALL INTERFACES."]
     configdefaults["THREAT_INTELLIGENCE_FEED"] = ["ON", "TURN ON INTELLIGENCE FEED, CALL TO https://www.binarydefense.com/banlist.txt IN ORDER TO GET ALREADY KNOWN MALICIOUS IP ADDRESSES. WILL PULL EVERY 24 HOURS"]
     configdefaults["THREAT_FEED"] = ["https://www.binarydefense.com/banlist.txt","CONFIGURE THIS TO BE WHATEVER THREAT FEED YOU WANT BY DEFAULT IT WILL USE BINARY DEFENSE - NOTE YOU CAN SPECIFY MULTIPLE THREAT FEEDS BY DOING #http://urlthreatfeed1,http://urlthreadfeed2"]
-    configdefaults["THREAT_SERVER"] = ["OFF", "A THREAT SERVER IS A SERVER THAT WILL COPY THE BANLIST.TXT TO A PUBLIC HTTP LOCATION TO BE PULLED BY OTHER ARTILLERY SERVER. THIS IS USED IF YOU DO NOT WANT TO USE THE STANDARD BINARY DEFENSE ONE."]
+    configdefaults["THREAT_SERVER"] = ["OFF", "A THREAT SERVER IS A SERVER THAT WILL COPY THE BANLIST.TXT TO A PUBLIC HTTP LOCATION TO BE PULLED BY OTHER NetShield SERVER. THIS IS USED IF YOU DO NOT WANT TO USE THE STANDARD BINARY DEFENSE ONE."]
     configdefaults["THREAT_LOCATION"] = ["/var/www/","PUBLIC LOCATION TO PULL VIA HTTP ON THE THREAT SERVER. NOTE THAT THREAT SERVER MUST BE SET TO ON"]
     configdefaults["ROOT_CHECK"] = ["ON", "THIS CHECKS TO SEE WHAT PERMISSIONS ARE RUNNING AS ROOT IN A WEB SERVER DIRECTORY"]
-    configdefaults["SYSLOG_TYPE"] = ["LOCAL", "Specify SYSLOG TYPE to be local, file or remote. LOCAL will pipe to syslog, REMOTE will pipe to remote SYSLOG, and file will send to alerts.log in local artillery directory"]
-    configdefaults["LOG_MESSAGE_ALERT"] = ["Artillery has detected an attack from %ip% for a connection on a honeypot port %port%", "ALERT LOG MESSAGES (You can use the following variables: %time%, %ip%, %port%)"]
-    configdefaults["LOG_MESSAGE_BAN"] = ["Artillery has blocked (and blacklisted) an attack from %ip% for a connection to a honeypot restricted port %port%", "BAN LOG MESSAGES (You can use the following variables: %time%, %ip%, %port%)"]
+    configdefaults["SYSLOG_TYPE"] = ["LOCAL", "Specify SYSLOG TYPE to be local, file or remote. LOCAL will pipe to syslog, REMOTE will pipe to remote SYSLOG, and file will send to alerts.log in local NetShield directory"]
+    configdefaults["LOG_MESSAGE_ALERT"] = ["NetShield has detected an attack from %ip% for a connection on a honeypot port %port%", "ALERT LOG MESSAGES (You can use the following variables: %time%, %ip%, %port%)"]
+    configdefaults["LOG_MESSAGE_BAN"] = ["NetShield has blocked (and blacklisted) an attack from %ip% for a connection to a honeypot restricted port %port%", "BAN LOG MESSAGES (You can use the following variables: %time%, %ip%, %port%)"]
     configdefaults["SYSLOG_REMOTE_HOST"] = ["192.168.0.1","IF YOU SPECIFY SYSLOG TYPE TO REMOTE, SPECIFY A REMOTE SYSLOG SERVER TO SEND ALERTS TO"]
     configdefaults["SYSLOG_REMOTE_PORT"] = ["514", "IF YOU SPECIFY SYSLOG TYPE OF REMOTE, SEPCIFY A REMOTE SYSLOG PORT TO SEND ALERTS TO"]
     configdefaults["CONSOLE_LOGGING"] = ["ON", "TURN ON CONSOLE LOGGING"]
     configdefaults["RECYCLE_IPS"] = ["OFF", "RECYCLE LOGS AFTER A CERTAIN AMOUNT OF TIME - THIS WILL WIPE ALL IP ADDRESSES AND START FROM SCRATCH AFTER A CERTAIN INTERVAL"] 
-    configdefaults["ARTILLERY_REFRESH"] = ["604800", "RECYCLE INTERVAL AFTER A CERTAIN AMOUNT OF MINUTES IT WILL OVERWRITE THE LOG WITH A BLANK ONE AND ELIMINATE THE IPS - DEFAULT IS 7 DAYS"]
-    configdefaults["SOURCE_FEEDS"] = ["OFF", "PULL ADDITIONAL SOURCE FEEDS FOR BANNED IP LISTS FROM MULTIPLE OTHER SOURCES OTHER THAN ARTILLERY"] 
+    configdefaults["NetShield_REFRESH"] = ["604800", "RECYCLE INTERVAL AFTER A CERTAIN AMOUNT OF MINUTES IT WILL OVERWRITE THE LOG WITH A BLANK ONE AND ELIMINATE THE IPS - DEFAULT IS 7 DAYS"]
+    configdefaults["SOURCE_FEEDS"] = ["OFF", "PULL ADDITIONAL SOURCE FEEDS FOR BANNED IP LISTS FROM MULTIPLE OTHER SOURCES OTHER THAN NetShield"] 
     configdefaults["LOCAL_BANLIST"] = ["OFF", "CREATE A SEPARATE LOCAL BANLIST FILE (USEFUL IF YOU'RE ALSO USING A THREAT FEED AND WANT TO HAVE A FILE THAT CONTAINS THE IPs THAT HAVE BEEN BANNED LOCALLY"]
     configdefaults["THREAT_FILE"] = ["banlist.txt", "FILE TO COPY TO THREAT_LOCATION, TO ACT AS A THREAT_SERVER. CHANGE TO \"localbanlist.txt\" IF YOU HAVE ENABLED \"LOCAL_BANLIST\" AND WISH TO HOST YOUR LOCAL BANLIST. IF YOU WISH TO COPY BOTH FILES, SEPARATE THE FILES WITH A COMMA - f.i. \"banlist.txt,localbanlist.txt\""] 
 
@@ -213,7 +213,7 @@ def check_config():
     keyorder.append("SYSLOG_REMOTE_PORT")
     keyorder.append("CONSOLE_LOGGING")
     keyorder.append("RECYCLE_IPS")
-    keyorder.append("ARTILLERY_REFRESH")
+    keyorder.append("NetShield_REFRESH")
     keyorder.append("SOURCE_FEEDS")
     for key in configdefaults:
       if not key in keyorder:
@@ -241,7 +241,7 @@ def check_config():
     create_config(globals.g_configfile, configdefaults, keyorder)
   
     if createnew:
-      msg = "A brand new config file '%s' was created. Please review the file, change as needed, and launch artillery (again)." % globals.g_configfile
+      msg = "A brand new config file '%s' was created. Please review the file, change as needed, and launch NetShield (again)." % globals.g_configfile
       write_console(msg)
       write_log(msg,1)
       #sys.exit(1) 
@@ -254,15 +254,15 @@ def check_config():
 def get_config_path():
     #path = ""
     #if is_posix():
-    #    if os.path.isfile("/var/artillery/config"):
-    #        path = "/var/artillery/config"
+    #    if os.path.isfile("/var/NetShield/config"):
+    #        path = "/var/NetShield/config"
     #    if os.path.isfile("config"):
     #        path = "config"
     #changed path to be more consistant across windows versions
     #if is_windows():
     #    program_files = os.environ["PROGRAMFILES(X86)"]
-    #    if os.path.isfile(program_files + "\\Artillery\\config"):
-    #        path = program_files + "\\Artillery\\config"
+    #    if os.path.isfile(program_files + "\\NetShield\\config"):
+    #        path = program_files + "\\NetShield\\config"
     path = globals.g_configfile
     return path
 
@@ -334,10 +334,10 @@ def ban(ip):
                            if ban_classc == "on":
                                    ip = convert_to_classc(ip)
                            subprocess.Popen(
-                                "iptables -I ARTILLERY 1 -s %s -j DROP" % ip, shell=True).wait()
+                                "iptables -I NetShield 1 -s %s -j DROP" % ip, shell=True).wait()
                            iptables_logprefix = read_config("HONEYPOT_BAN_LOG_PREFIX")
                            if iptables_logprefix != "":
-                              subprocess.Popen("iptables -I ARTILLERY 1 -s %s -j LOG --log-prefix \"%s\"" % (ip, iptables_logprefix), shell=True).wait() 
+                              subprocess.Popen("iptables -I NetShield 1 -s %s -j LOG --log-prefix \"%s\"" % (ip, iptables_logprefix), shell=True).wait() 
 
 
                    # if running windows then route attacker to some bs address.
@@ -395,10 +395,10 @@ def update():
                 if len(globals.g_apppath) > 1:
                     shutil.rmtree(globals.g_apppath)
                 subprocess.Popen(
-                    "git clone https://github.com/binarydefense/artillery", shell=True).wait()
+                    "git clone https://github.com/binarydefense/NetShield", shell=True).wait()
             except:
                 print(
-                    "[!] Something failed. Please type 'git clone https://github.com/binarydefense/artillery %s' to fix!" % globals.g_apppath)
+                    "[!] Something failed. Please type 'git clone https://github.com/binarydefense/NetShield %s' to fix!" % globals.g_apppath)
 
         #subprocess.Popen("cd %s;git pull" % globals.g_apppath,
         #                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
@@ -413,7 +413,7 @@ def update():
             if "Aborting" in l:
                 abortfound = True
         if errorfound and abortfound:
-            msg = "Error updating artillery, git pull was aborted. Error:\n%s" % errormsg
+            msg = "Error updating NetShield, git pull was aborted. Error:\n%s" % errormsg
             write_log(msg,2)
             write_console(msg)
             msg = "I will make a cop of the config file, run git stash, and restore config file"
@@ -527,7 +527,7 @@ def check_banlist_path():
             if os.path.isdir(globals.g_apppath):
                 filewrite = open(globals.g_banlist, "w")
                 filewrite.write(
-                    "#\n#\n#\n# Binary Defense Systems Artillery Threat Intelligence Feed and Banlist Feed\n# https://www.binarydefense.com\n#\n# Note that this is for public use only.\n# The ATIF feed may not be used for commercial resale or in products that are charging fees for such services.\n# Use of these feeds for commerical (having others pay for a service) use is strictly prohibited.\n#\n#\n#\n")
+                    "#\n#\n#\n# Binary Defense Systems NetShield Threat Intelligence Feed and Banlist Feed\n# https://www.binarydefense.com\n#\n# Note that this is for public use only.\n# The ATIF feed may not be used for commercial resale or in products that are charging fees for such services.\n# Use of these feeds for commerical (having others pay for a service) use is strictly prohibited.\n#\n#\n#\n")
                 filewrite.close()
                 path = globals.g_banlist
     #changed path to be more consistant across windows versions
@@ -542,7 +542,7 @@ def check_banlist_path():
                 filewrite = open(
                     globals.g_banlist, "w")
                 filewrite.write(
-                    "#\n#\n#\n# Binary Defense Systems Artillery Threat Intelligence Feed and Banlist Feed\n# https://www.binarydefense.com\n#\n# Note that this is for public use only.\n# The ATIF feed may not be used for commercial resale or in products that are charging fees for such services.\n# Use of these feeds for commerical (having others pay for a service) use is strictly prohibited.\n#\n#\n#\n")
+                    "#\n#\n#\n# Binary Defense Systems NetShield Threat Intelligence Feed and Banlist Feed\n# https://www.binarydefense.com\n#\n# Note that this is for public use only.\n# The ATIF feed may not be used for commercial resale or in products that are charging fees for such services.\n# Use of these feeds for commerical (having others pay for a service) use is strictly prohibited.\n#\n#\n#\n")
                 filewrite.close()
     return path
 
@@ -619,7 +619,7 @@ def write_banlist_banner(filepath):
     banner = """#
 #
 #
-# Binary Defense Systems Artillery Threat Intelligence Feed and Banlist Feed
+# Binary Defense Systems NetShield Threat Intelligence Feed and Banlist Feed
 # https://www.binarydefense.com
 #
 # Note that this is for public use only.
@@ -639,12 +639,12 @@ def create_iptables_subset():
         ban_check = read_config("HONEYPOT_BAN").lower()
         if ban_check == "on":
             # remove previous entry if it already exists
-            execOScmd("iptables -D INPUT -j ARTILLERY", "Deleting ARTILLERY IPTables Chain")
+            execOScmd("iptables -D INPUT -j NetShield", "Deleting NetShield IPTables Chain")
             # create new chain
             write_log("Flushing iptables chain, creating a new one")
-            execOScmd("iptables -N ARTILLERY -w 3")
-            execOScmd("iptables -F ARTILLERY -w 3")
-            execOScmd("iptables -I INPUT -j ARTILLERY -w 3")
+            execOScmd("iptables -N NetShield -w 3")
+            execOScmd("iptables -F NetShield -w 3")
+            execOScmd("iptables -I INPUT -j NetShield -w 3")
 
     bannedips = []
 
@@ -715,11 +715,11 @@ def create_iptables_subset():
        total_added = 0
        for iplist in iplists: 
           ips_to_block = ','.join(iplist)
-          massloadcmd = "iptables -I ARTILLERY -s %s -j DROP -w 3" % ips_to_block
+          massloadcmd = "iptables -I NetShield -s %s -j DROP -w 3" % ips_to_block
           subprocess.Popen(massloadcmd, shell=True).wait()
           iptables_logprefix = read_config("HONEYPOT_BAN_LOG_PREFIX")
           if iptables_logprefix != "":
-             massloadcmd = "iptables -I ARTILLERY -s %s -j LOG --log-prefix \"%s\" -w 3" % (ips_to_block, iptables_logprefix)
+             massloadcmd = "iptables -I NetShield -s %s -j LOG --log-prefix \"%s\" -w 3" % (ips_to_block, iptables_logprefix)
              subprocess.Popen(massloadcmd, shell=True).wait() 
           total_added += len(iplist)
           write_log("%d/%d - Added %d/%d IP entries to iptables chain." % (listindex, len(iplists), total_added, total_nr))
@@ -743,7 +743,7 @@ def is_already_banned(ip):
     ban_check = read_config("HONEYPOT_BAN").lower()
     if ban_check == "on":
 
-        proc = subprocess.Popen("iptables -L ARTILLERY -n --line-numbers",
+        proc = subprocess.Popen("iptables -L NetShield -n --line-numbers",
                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         iptablesbanlist = proc.stdout.readlines()
         ban_classc = read_config("HONEYPOT_BAN_CLASSC").lower()
@@ -906,20 +906,20 @@ def syslog(message, alerttype):
         remote_port = int(read_config("SYSLOG_REMOTE_PORT"))
         syslogmsg = message
         if alertindicator != "":
-            syslogmsg = "Artillery%s: %s" % (alertindicator, message)
-           #syslogmsg = "%s %s Artillery: %s" % (grab_time(), alertindicator, message) 
+            syslogmsg = "NetShield%s: %s" % (alertindicator, message)
+           #syslogmsg = "%s %s NetShield: %s" % (grab_time(), alertindicator, message) 
         syslog_send(syslogmsg, host=remote_syslog, port=remote_port)
 
     # if we are sending local syslog messages
     if type == "local":
-        my_logger = logging.getLogger('Artillery')
+        my_logger = logging.getLogger('NetShield')
         my_logger.setLevel(logging.DEBUG)
         handler = logging.handlers.SysLogHandler(address='/dev/log')
         my_logger.addHandler(handler)
         for line in message.splitlines():
             if alertindicator != "":
-                my_logger.critical("Artillery%s: %s\n" % (alertindicator, line))
-                #my_logger.critical("%s %s Artillery: %s\n" % (grab_time(), alertindicator, line))
+                my_logger.critical("NetShield%s: %s\n" % (alertindicator, line))
+                #my_logger.critical("%s %s NetShield: %s\n" % (grab_time(), alertindicator, line))
             else:
                 my_logger.critical("%s\n" % line)
 
@@ -931,11 +931,11 @@ def syslog(message, alerttype):
             
         if not os.path.isfile("%s/logs/alerts.log" % globals.g_apppath):
             filewrite = open("%s/logs/alerts.log" % globals.g_apppath, "w")
-            filewrite.write("***** Artillery Alerts Log *****\n")
+            filewrite.write("***** NetShield Alerts Log *****\n")
             filewrite.close()
 
         filewrite = open("%s/logs/alerts.log" % globals.g_apppath, "a")
-        filewrite.write("Artillery%s: %s\n" % (alertindicator, message))
+        filewrite.write("NetShield%s: %s\n" % (alertindicator, message))
         filewrite.close()
 
 def write_console(alert):
@@ -961,7 +961,7 @@ def write_log(alert, alerttype=0):
         if not os.path.isfile("%s\\logs\\alerts.log" % globals.g_apppath):
             filewrite = open(
                 "%s\\logs\\alerts.log" % globals.g_apppath, "w")
-            filewrite.write("***** Artillery Alerts Log *****\n")
+            filewrite.write("***** NetShield Alerts Log *****\n")
             filewrite.close()
         filewrite = open("%s\\logs\\alerts.log" % globals.g_apppath, "a")
         filewrite.write(alert + "\n")
@@ -1026,20 +1026,20 @@ def mail(to, subject, text):
             mailServer.close()
 
         except Exception as err:
-            write_log("Error, Artillery was unable to log into the mail server %s:%d" % (
+            write_log("Error, NetShield was unable to log into the mail server %s:%d" % (
                 smtp_address, smtp_port),2)
             emsg = traceback.format_exc()
             write_log("Error: " + str(err),2)
             write_log(" %s" % emsg,2)
-            write_console("[!] Artillery was unable to send email via %s:%d" % (smtp_address, smtp_port))
+            write_console("[!] NetShield was unable to send email via %s:%d" % (smtp_address, smtp_port))
             write_console("[!] Error: %s" % emsg)
             pass
     else:
         write_console("[*] Email alerts are not enabled. please look @ %s to enable." % (globals.g_configfile))
-# kill running instances of artillery
+# kill running instances of NetShield
 
 
-def kill_artillery():
+def kill_NetShield():
     try:
         proc = subprocess.Popen(
             "ps -A x | grep artiller[y]", stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
@@ -1052,8 +1052,8 @@ def kill_artillery():
         # depends on OS on integer
         # pid = int(pid[2])
         for i in pid:
-            write_log("Killing the old Artillery process...")
-            print("[!] %s: Killing Old Artillery Process...." % (grab_time()))
+            write_log("Killing the old NetShield process...")
+            print("[!] %s: Killing Old NetShield Process...." % (grab_time()))
             os.kill(i, signal.SIGKILL)
 
     except Exception as e:
@@ -1061,20 +1061,20 @@ def kill_artillery():
         pass
 
 
-def cleanup_artillery():
+def cleanup_NetShield():
     ban_check = read_config("HONEYPOT_BAN").lower()
     if ban_check == "on":
-        subprocess.Popen("iptables -D INPUT -j ARTILLERY",
+        subprocess.Popen("iptables -D INPUT -j NetShield",
                          stdout=subprocess.PIP, stderr=subprocess.PIPE, shell=True)
-        subprocess.Popen("iptables -X ARTILLERY",
+        subprocess.Popen("iptables -X NetShield",
                          stdout=subprocess.PIP, stderr=subprocess.PIPE, shell=True)
 
-# overwrite artillery banlist after certain time interval
+# overwrite NetShield banlist after certain time interval
 
 
 def refresh_log():
     while 1:
-        interval = read_config("ARTILLERY_REFRESH=")
+        interval = read_config("NetShield_REFRESH=")
         try:
             interval = int(interval)
         except:
@@ -1218,7 +1218,7 @@ def sort_banlist():
     banner = """#
 #
 #
-# Binary Defense Systems Artillery Threat Intelligence Feed and Banlist Feed
+# Binary Defense Systems NetShield Threat Intelligence Feed and Banlist Feed
 # https://www.binarydefense.com
 #
 # Note that this is for public use only.
@@ -1257,9 +1257,9 @@ def sort_banlist():
     filewrite.close()
 #removed turns out the issue was windows carriage returns in the init script i had.
 #note to self never open linux service files on windows.doh
-# this was just a place holder artillery.py code
+# this was just a place holder NetShield.py code
 #def writePidFile():
 #   pid = str(os.getpid())
-#   f = open('/var/run/artillery.pid', 'w')
+#   f = open('/var/run/NetShield.pid', 'w')
 #   f.write(pid)
 #   f.close()

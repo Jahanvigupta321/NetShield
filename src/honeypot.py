@@ -59,7 +59,7 @@ class SocketListener((SocketServer.BaseRequestHandler)):
                 if not is_whitelisted_ip(ip):
                     now = str(datetime.datetime.today())
                     port = str(self.server.server_address[1])
-                    subject = "%s [!] Artillery has detected an attack from the IP Address: %s" % (
+                    subject = "%s [!] NetShield has detected an attack from the IP Address: %s" % (
                         now, ip)
                     alert = ""
                     message = log_message_alert
@@ -103,9 +103,9 @@ class SocketListener((SocketServer.BaseRequestHandler)):
 def open_sesame(porttype, port):
     if honeypot_autoaccept:
         if is_posix():
-            cmd = "iptables -D ARTILLERY -p %s --dport %s -j ACCEPT -w 3" % (porttype, port)
+            cmd = "iptables -D NetShield -p %s --dport %s -j ACCEPT -w 3" % (porttype, port)
             execOScmd(cmd)
-            cmd = "iptables -A ARTILLERY -p %s --dport %s -j ACCEPT -w 3" % (porttype, port)
+            cmd = "iptables -A NetShield -p %s --dport %s -j ACCEPT -w 3" % (porttype, port)
             execOScmd(cmd)
             write_log("Created iptables rule to accept incoming connection to %s %s" % (porttype, port))
         if is_windows():
@@ -134,7 +134,7 @@ def listentcp_server(tcpport, bind_interface):
             server.serve_forever()
         # if theres already something listening on this port
         except Exception as err:
-            errormsg += socket.gethostname() + " | %s | Artillery error - unable to bind to TCP port %s\n" % (grab_time(), port)
+            errormsg += socket.gethostname() + " | %s | NetShield error - unable to bind to TCP port %s\n" % (grab_time(), port)
             errormsg += str(err)
             errormsg += "\n"
             bindsuccess = False
@@ -142,8 +142,8 @@ def listentcp_server(tcpport, bind_interface):
             continue 
 
     if not bindsuccess:
-        binderror = "Artillery was unable to bind to TCP port %s. This could be due to an active port in use.\n" % (port)
-        subject = socket.gethostname() + " | Artillery error - unable to bind to TCP port %s" % port 
+        binderror = "NetShield was unable to bind to TCP port %s. This could be due to an active port in use.\n" % (port)
+        subject = socket.gethostname() + " | NetShield error - unable to bind to TCP port %s" % port 
         binderror += errormsg
         write_log(binderror, 2)
         send_mail(subject, binderror)
@@ -169,7 +169,7 @@ def listenudp_server(udpport, bind_interface):
             server.serve_forever()
           # if theres already something listening on this port
           except Exception as err:
-            errormsg += socket.gethostname() + " | %s | Artillery error - unable to bind to UDP port %s\n" % (grab_time(), port)
+            errormsg += socket.gethostname() + " | %s | NetShield error - unable to bind to UDP port %s\n" % (grab_time(), port)
             errormsg += str(err)
             errormsg += "\n"
             bindsuccess = False
@@ -178,8 +178,8 @@ def listenudp_server(udpport, bind_interface):
 
       if not bindsuccess:
           binderror = ''
-          bind_error = "Artillery was unable to bind to UDP port %s. This could be due to an active port in use.\n" % (port)
-          subject = socket.gethostname() + " | Artillery error - unable to bind to UDP port %s" % port
+          bind_error = "NetShield was unable to bind to UDP port %s. This could be due to an active port in use.\n" % (port)
+          subject = socket.gethostname() + " | NetShield error - unable to bind to UDP port %s" % port
           binderror += errormsg
           write_log(binderror, 2)
           send_mail(subject, binderror)

@@ -81,17 +81,17 @@ def ftp_monitor(monitor_time):
 
                                     if email_alerts == "on" and email_frequency == "off":
                                         mail(send_email,
-                                             "[!] Artillery has banned an FTP brute force. [!]",
+                                             "[!] NetShield has banned an FTP brute force. [!]",
                                              "The following IP has been blocked: " + ipaddress)
 
                                     # check frequency is allowed
                                     if email_alerts == "on" and email_frequency == "on":
                                         prep_email(
-                                            "Artillery has blocked (blacklisted) the following IP for FTP brute forcing violations: " + ipaddress + "\n")
+                                            "NetShield has blocked (blacklisted) the following IP for FTP brute forcing violations: " + ipaddress + "\n")
 
                                     # write out to log
                                     write_log(
-                                        "Artillery has blocked (blacklisted) the following IP for FTP brute forcing violations: " + ipaddress)
+                                        "NetShield has blocked (blacklisted) the following IP for FTP brute forcing violations: " + ipaddress)
 
                                     # do the actual ban, this is pulled from
                                     # src.core
