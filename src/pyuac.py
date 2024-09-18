@@ -2,28 +2,6 @@
 # -*- coding: utf-8; mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-
 # vim: fileencoding=utf-8 tabstop=4 expandtab shiftwidth=4
 
-"""User Access Control for Microsoft Windows Vista and higher.  This is
-only for the Windows platform.
-
-This will relaunch either the current script - with all the same command
-line parameters - or else you can provide a different script/program to
-run.  If the current user doesn't normally have admin rights, he'll be
-prompted for an admin password. Otherwise he just gets the UAC prompt.
-
-Note that the prompt may simply shows a generic python.exe with "Publisher:
-Unknown" if the python.exe is not signed.
-
-This is meant to be used something like this::
-
-    if not pyuac.isUserAdmin():
-        return pyuac.runAsAdmin()
-
-    # otherwise carry on doing whatever...
-
-See L{runAsAdmin} for the main interface.
-
-"""
-
 import sys, os, traceback, types
 
 def isUserAdmin():

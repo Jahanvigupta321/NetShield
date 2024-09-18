@@ -3,12 +3,6 @@
 #
 # Events.py
 #
-# defined some events for use with NetShield
-# just basic events for now no dll. i dont know c. will try?.
-# I am aware of  win32service.pyd and i do not want to blow up logs for
-# now. logs to application log on windows. would like to create custom events?
-# for now there are only 2 the names are self explanatory
-# Tweaked import for issue #39 from BinaryDefense
 from .core import is_windows, is_posix
 import sys
 #dont know if needed but no issues for now

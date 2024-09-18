@@ -1,13 +1,3 @@
-#!/usr/bin/python
-################################################################################
-#
-#  NetShield - An active honeypotting tool and threat intelligence feed
-#
-# Written by Dave Kennedy (ReL1K) @HackingDave
-#
-# A Binary Defense Project (https://www.binarydefense.com) @Binary_Defense
-#
-################################################################################
 import time
 import sys
 import errno
@@ -15,7 +5,6 @@ import errno
 try: import thread
 except ImportError: import _thread as thread
 import os
-import subprocess
 from src.pyuac import * # added so that it prompts when launching from batch file
 
 import traceback
@@ -105,27 +94,27 @@ try:
             import src.anti_dos
 
     # spawn honeypot
-    write_console("Launching honeypot.") 
-    import src.honeypot
+    # write_console("Launching honeypot.") 
+    # import src.honeypot
 
-    # spawn ssh monitor
-    if is_config_enabled("SSH_BRUTE_MONITOR") and is_posix():
-        write_console("Launching SSH Bruteforce monitor.")
-        import src.ssh_monitor
+    # # spawn ssh monitor
+    # if is_config_enabled("SSH_BRUTE_MONITOR") and is_posix():
+    #     write_console("Launching SSH Bruteforce monitor.")
+    #     import src.ssh_monitor
 
-    # spawn ftp monitor
-    if is_config_enabled("FTP_BRUTE_MONITOR") and is_posix():
-        write_console("Launching FTP Bruteforce monitor.")
-        import src.ftp_monitor
+    # # spawn ftp monitor
+    # if is_config_enabled("FTP_BRUTE_MONITOR") and is_posix():
+    #     write_console("Launching FTP Bruteforce monitor.")
+    #     import src.ftp_monitor
 
     # start monitor engine
     if is_config_enabled("MONITOR") and is_posix():
         write_console("Launching monitor engines.")
         import src.monitor
-    if is_config_enabled("SYSTEM_HARDENING") and is_posix():
-        # check hardening
-        write_console("Check system hardening.")
-        import src.harden
+    # if is_config_enabled("SYSTEM_HARDENING") and is_posix():
+    #     # check hardening
+    #     write_console("Check system hardening.")
+    #     import src.harden
 
     # start the email handler
     if is_config_enabled("EMAIL_ALERTS") and is_posix():

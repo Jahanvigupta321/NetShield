@@ -5,7 +5,6 @@
 
 import time
 import subprocess
-import re
 import os
 import shutil
 from src.core import *
